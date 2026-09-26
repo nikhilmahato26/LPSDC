@@ -4,9 +4,8 @@ import { BUSINESS_INFO } from '../data/fleetData';
 import { InstagramIcon } from './InstagramIcon';
 
 export const LocationSection: React.FC = () => {
-  const encodedAddress = encodeURIComponent(BUSINESS_INFO.address);
-  const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-  const mapEmbedUrl = `https://maps.google.com/maps?q=${encodedAddress}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+  const directionsUrl = BUSINESS_INFO.googleMapsUrl;
+  const mapEmbedUrl = 'https://maps.google.com/maps?q=17.3372502,78.362895&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
   return (
     <section id="contact" className="py-20 lg:py-28 bg-brand-bg relative">
@@ -147,7 +146,7 @@ export const LocationSection: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-xs font-extrabold text-brand-blue hover:text-brand-blue-secondary flex items-center gap-1 shrink-0"
                 >
-                  <span>Open Full Map</span>
+                  <span>Open in Google Maps</span>
                   <Navigation className="w-3.5 h-3.5" />
                 </a>
               </div>

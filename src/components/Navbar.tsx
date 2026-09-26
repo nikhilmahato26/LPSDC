@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Calendar, Menu, X, Car, MessageSquare } from 'lucide-react';
+import { Phone, Calendar, Menu, X, MessageSquare } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/fleetData';
 
 interface NavbarProps {
@@ -24,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBookingModal }) => {
 
   const navLinks = [
     { name: 'Home', href: '#home' },
-    { name: 'Fleet', href: '#fleet' },
+    { name: 'Fleet & Rates', href: '#fleet' },
     { name: 'Services', href: '#services' },
     { name: 'Thar 4×4', href: '#thar-featured' },
     { name: 'About', href: '#about' },
@@ -51,33 +51,39 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBookingModal }) => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-brand-border py-3.5'
-            : 'bg-white/80 backdrop-blur-sm border-b border-slate-100 py-4 lg:py-5'
+            ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-brand-border py-2.5 sm:py-3'
+            : 'bg-white/90 backdrop-blur-sm border-b border-slate-100 py-3 sm:py-3.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Brand Logo & Name */}
+            {/* Official Brand Logo & Name */}
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, '#home')}
               className="flex items-center gap-3 group focus:outline-none"
             >
-              <div className="w-11 h-11 rounded-xl bg-brand-blue flex items-center justify-center text-white shadow-sm group-hover:bg-brand-blue-secondary transition-colors relative overflow-hidden">
-                <Car className="w-6 h-6 text-brand-yellow" />
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-brand-yellow rounded-tl-md"></span>
+              <div className="h-10 sm:h-12 rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-slate-950 flex items-center justify-center p-0.5 transition-transform group-hover:scale-105">
+                <img
+                  src="/images/lpsdc-logo.jpg"
+                  alt="LPSDC – Lakshmi Prasad Self Drive Cars"
+                  className="h-full w-auto object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-2xl font-extrabold tracking-tight text-brand-blue leading-none">
+                  <span className="text-xl sm:text-2xl font-black tracking-tight text-brand-blue leading-none">
                     LPSDC
                   </span>
                   <span className="text-[10px] font-bold px-1.5 py-0.5 bg-brand-yellow/20 text-brand-blue rounded border border-brand-yellow/30 uppercase tracking-wider">
                     Est. 2019
                   </span>
                 </div>
-                <span className="text-[11px] sm:text-xs font-medium text-brand-muted tracking-tight">
+                <span className="text-[11px] sm:text-xs font-semibold text-brand-muted tracking-tight">
                   Lakshmi Prasad Self Drive Cars
+                </span>
+                <span className="hidden xl:inline text-[9px] font-bold text-amber-600 tracking-wider uppercase">
+                  Drive Like You Are The Boss Of Car
                 </span>
               </div>
             </a>
@@ -89,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBookingModal }) => {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="px-3.5 py-2 text-sm font-semibold text-slate-700 hover:text-brand-blue rounded-lg hover:bg-brand-blue-light transition-all duration-150"
+                  className="px-3 py-2 text-sm font-semibold text-slate-700 hover:text-brand-blue rounded-lg hover:bg-brand-blue-light transition-all duration-150"
                 >
                   {link.name}
                 </a>
@@ -100,14 +106,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBookingModal }) => {
             <div className="hidden sm:flex items-center gap-3">
               <a
                 href={`tel:${BUSINESS_INFO.phone}`}
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-semibold text-brand-blue hover:text-brand-blue-secondary transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-brand-blue hover:text-brand-blue-secondary transition-colors"
                 title={`Call ${BUSINESS_INFO.formattedPhone}`}
               >
                 <div className="w-8 h-8 rounded-full bg-brand-blue-light flex items-center justify-center text-brand-blue">
                   <Phone className="w-4 h-4" />
                 </div>
                 <span className="hidden lg:inline">{BUSINESS_INFO.phone}</span>
-                <span className="lg:hidden">CALL NOW</span>
+                <span className="lg:hidden">CALL</span>
               </a>
 
               <button
@@ -151,6 +157,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBookingModal }) => {
         {/* Mobile Slide-down Drawer */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-brand-border bg-white px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top duration-200">
+            {/* Logo in drawer */}
+            <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl mb-3 border border-slate-100">
+              <img
+                src="/images/lpsdc-logo.jpg"
+                alt="LPSDC Logo"
+                className="h-10 w-auto rounded-lg object-contain bg-black p-0.5"
+              />
+              <div>
+                <div className="text-sm font-extrabold text-brand-blue">LPSDC</div>
+                <div className="text-[11px] text-slate-500 font-semibold">Drive Like You Are The Boss Of Car</div>
+              </div>
+            </div>
+
             <div className="flex flex-col space-y-1">
               {navLinks.map((link) => (
                 <a

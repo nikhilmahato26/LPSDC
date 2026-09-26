@@ -35,10 +35,13 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
     },
   });
 
+  const selectedVehicleName = watch('vehicle');
+  const selectedVehicleObj = FLEET_VEHICLES.find((v) => v.name === selectedVehicleName);
   const selectedService = watch('serviceType');
 
   const onSubmit = (data: BookingFormData) => {
     setSubmittedData(data);
+    const vehicleObj = FLEET_VEHICLES.find((v) => v.name === data.vehicle);
     const whatsappUrl = getWhatsAppUrl({
       fullName: data.fullName,
       phone: data.phone,
@@ -47,12 +50,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
       pickupDate: data.pickupDate,
       returnDate: data.returnDate,
       message: data.message,
+      price: vehicleObj?.price,
     });
     window.open(whatsappUrl, '_blank');
   };
 
   const handleDirectWhatsApp = () => {
     const currentValues = watch();
+    const vehicleObj = FLEET_VEHICLES.find((v) => v.name === currentValues.vehicle);
     const whatsappUrl = getWhatsAppUrl({
       fullName: currentValues.fullName,
       phone: currentValues.phone,
@@ -61,6 +66,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
       pickupDate: currentValues.pickupDate,
       returnDate: currentValues.returnDate,
       message: currentValues.message,
+      price: vehicleObj?.price,
     });
     window.open(whatsappUrl, '_blank');
   };
@@ -72,7 +78,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-brand-blue-light text-brand-blue border border-brand-blue/15 mb-3">
-            Instant Reservation
+            Instant 24HR Reservation
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-blue tracking-tight">
             BOOK YOUR CAR
@@ -141,6 +147,27 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 </span>
               </button>
 
+              {/* Dynamic Selected Vehicle Preview Pill */}
+              {selectedVehicleObj && (
+                <div className="mt-6 p-4 rounded-2xl bg-white border border-brand-blue/30 shadow-subtle flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={selectedVehicleObj.image}
+                      alt={selectedVehicleObj.name}
+                      className="w-16 h-12 object-cover rounded-lg"
+                    />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900">{selectedVehicleObj.name}</div>
+                      <div className="text-[11px] text-slate-500">{selectedVehicleObj.subName}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs font-extrabold text-brand-blue">{selectedVehicleObj.price}</span>
+                    <div className="text-[10px] text-slate-500">{selectedVehicleObj.priceUnit}</div>
+                  </div>
+                </div>
+              )}
+
               {/* Rental Checklist */}
               <div className="mt-8 pt-6 border-t border-slate-200 space-y-3">
                 <div className="text-xs font-extrabold uppercase tracking-wider text-slate-900">
@@ -156,7 +183,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 </div>
                 <div className="flex items-center gap-2.5 text-xs text-slate-700">
                   <CheckCircle2 className="w-4 h-4 text-brand-blue shrink-0" />
-                  <span>Flexible daily &amp; multi-day rental packages</span>
+                  <span>Flat 24HR pricing with crystal-clear terms</span>
                 </div>
               </div>
             </div>
@@ -248,7 +275,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                   {/* Vehicle Dropdown */}
                   <div>
                     <label htmlFor="vehicle" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                      Select Vehicle *
+                      Select Vehicle &amp; Rate *
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -266,7 +293,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                         <option value="">-- Choose a Vehicle --</option>
                         {FLEET_VEHICLES.map((car) => (
                           <option key={car.id} value={car.name}>
-                            {car.name} ({car.category})
+                            {car.name} ({car.subName || car.seats}) — {car.price}{car.priceUnit}
                           </option>
                         ))}
                       </select>

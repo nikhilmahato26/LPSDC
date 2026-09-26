@@ -1,5 +1,5 @@
 import React from 'react';
-import { Car, Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 import { BUSINESS_INFO, FLEET_VEHICLES } from '../data/fleetData';
 import { InstagramIcon } from './InstagramIcon';
 
@@ -18,8 +18,12 @@ export const Footer: React.FC = () => {
           {/* Brand & Summary */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-brand-blue flex items-center justify-center text-white shadow-sm">
-                <Car className="w-6 h-6 text-brand-yellow" />
+              <div className="h-12 rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-slate-950 flex items-center justify-center p-0.5">
+                <img
+                  src="/images/lpsdc-logo.jpg"
+                  alt="LPSDC Logo"
+                  className="h-full w-auto object-contain"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -35,6 +39,10 @@ export const Footer: React.FC = () => {
                 </span>
               </div>
             </div>
+
+            <p className="text-xs font-bold text-amber-600 uppercase tracking-wide">
+              Drive Like You Are The Boss Of Car
+            </p>
 
             <p className="text-sm text-slate-600 leading-relaxed max-w-sm">
               Rent a car. Choose how you travel. Self Drive and With-Driver Car Rental in Hyderabad. Established in 2019.
@@ -66,7 +74,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="#fleet" className="hover:text-brand-blue transition-colors">
-                  Our Fleet
+                  Fleet &amp; Rates
                 </a>
               </li>
               <li>
@@ -100,17 +108,18 @@ export const Footer: React.FC = () => {
           {/* Our Fleet Links */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-brand-blue">
-              Fleet Options
+              Fleet Options &amp; Rates
             </h4>
-            <div className="grid grid-cols-2 gap-x-2 gap-y-2 text-xs font-semibold text-slate-600">
-              {FLEET_VEHICLES.map((car) => (
+            <div className="grid grid-cols-1 gap-y-1.5 text-xs font-semibold text-slate-600">
+              {FLEET_VEHICLES.slice(0, 8).map((car) => (
                 <a
                   key={car.id}
                   href="#fleet"
-                  className="hover:text-brand-blue transition-colors truncate"
+                  className="hover:text-brand-blue transition-colors truncate flex items-center justify-between"
                   title={car.name}
                 >
-                  • {car.name}
+                  <span className="truncate">• {car.name}</span>
+                  <span className="text-[11px] font-bold text-brand-blue ml-2">{car.price}</span>
                 </a>
               ))}
             </div>

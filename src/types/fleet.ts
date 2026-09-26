@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export type VehicleCategory = 
   | 'All'
+  | 'Sedan'
   | 'Hatchback'
   | 'Crossover'
   | 'SUV'
@@ -12,13 +13,16 @@ export type VehicleCategory =
 export interface Vehicle {
   id: string;
   name: string;
+  subName?: string;
   category: string;
   filterCategory: VehicleCategory[];
   services: ('Self Drive' | 'With Driver')[];
   image: string;
   seats: string;
-  fuelType?: string;
-  transmission?: string;
+  fuelType: string;
+  transmission: string;
+  price: string;
+  priceUnit: string;
   featured?: boolean;
   tagline?: string;
   description?: string;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { X, Send, Phone, User, PhoneCall, Car, AlertCircle, Sparkles } from 'lucide-react';
+import { X, Send, Phone, User, PhoneCall, Car, AlertCircle, Sparkles, Tag } from 'lucide-react';
 import { FLEET_VEHICLES, BUSINESS_INFO, getWhatsAppUrl } from '../data/fleetData';
 import { bookingFormSchema } from '../types/fleet';
 import type { BookingFormData } from '../types/fleet';
@@ -59,9 +59,12 @@ export const QuickBookModal: React.FC<QuickBookModalProps> = ({
 
   if (!isOpen) return null;
 
+  const selectedVehicleName = watch('vehicle');
+  const selectedVehicleObj = FLEET_VEHICLES.find((v) => v.name === selectedVehicleName);
   const selectedService = watch('serviceType');
 
   const onSubmit = (data: BookingFormData) => {
+    const vehicleObj = FLEET_VEHICLES.find((v) => v.name === data.vehicle);
     const whatsappUrl = getWhatsAppUrl({
       fullName: data.fullName,
       phone: data.phone,
@@ -70,6 +73,7 @@ export const QuickBookModal: React.FC<QuickBookModalProps> = ({
       pickupDate: data.pickupDate,
       returnDate: data.returnDate,
       message: data.message,
+      price: vehicleObj?.price,
     });
     window.open(whatsappUrl, '_blank');
     onClose();
@@ -93,7 +97,7 @@ export const QuickBookModal: React.FC<QuickBookModalProps> = ({
                 Book / Enquire Vehicle
               </h3>
               <p className="text-xs text-blue-200 mt-1">
-                LPSDC – Lakshmi Prasad Self Drive Cars
+                LPSDC – 24-Hour Rental Pricing in Hyderabad
               </p>
             </div>
           </div>
@@ -114,7 +118,7 @@ export const QuickBookModal: React.FC<QuickBookModalProps> = ({
             {/* Vehicle Selection */}
             <div>
               <label htmlFor="modalVehicle" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Selected Vehicle *
+                Selected Vehicle &amp; Rate *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -132,7 +136,7 @@ export const QuickBookModal: React.FC<QuickBookModalProps> = ({
                   <option value="">-- Choose a Vehicle --</option>
                   {FLEET_VEHICLES.map((car) => (
                     <option key={car.id} value={car.name}>
-                      {car.name} ({car.category})
+                      {car.name} ({car.subName || car.seats}) — {car.price}{car.priceUnit}
                     </option>
                   ))}
                 </select>
@@ -145,6 +149,17 @@ export const QuickBookModal: React.FC<QuickBookModalProps> = ({
                   <AlertCircle className="w-3.5 h-3.5" />
                   {errors.vehicle.message}
                 </p>
+              )}
+
+              {/* Selected Price Highlight */}
+              {selectedVehicleObj && (
+                <div className="mt-2.5 px-3 py-2 rounded-xl bg-brand-blue-light/70 border border-brand-blue/20 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <Tag className="w-3.5 h-3.5 text-brand-blue" />
+                    <span className="font-bold text-slate-800">{selectedVehicleObj.name}</span>
+                  </div>
+                  <span className="font-black text-brand-blue">{selectedVehicleObj.price}{selectedVehicleObj.priceUnit}</span>
+                </div>
               )}
             </div>
 

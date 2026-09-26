@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, MessageSquare, ArrowRight, ShieldCheck, Users, CheckCircle2, Sparkles } from 'lucide-react';
+import { Phone, MessageSquare, ArrowRight, ShieldCheck, Users, CheckCircle2, Sparkles, Tag } from 'lucide-react';
 import { BUSINESS_INFO, FLEET_VEHICLES, getWhatsAppUrl } from '../data/fleetData';
 
 interface HeroProps {
@@ -8,27 +8,27 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
-  // Highlight cars in hero
+  // Highlight cars in hero with prices
   const heroCars = [
     {
       vehicle: FLEET_VEHICLES[0], // Thar 4x4
-      badge: 'Iconic 4×4 Experience',
-      caption: 'Mahindra Thar 4×4 • Adventure & Premium Road Stance',
+      badge: 'Iconic 4×4 • ₹4,500/24HR',
+      caption: 'Mahindra Thar 4×4 • Diesel AT • 4 Seater',
     },
     {
       vehicle: FLEET_VEHICLES[1], // Innova Crysta
-      badge: 'Ultimate Family Luxury',
-      caption: 'Toyota Innova Crysta • 7–8 Seater Supreme Comfort',
+      badge: 'Supreme MPV • ₹4,500/24HR',
+      caption: 'Toyota Innova Crysta • Diesel AT • 7 Seater',
     },
     {
-      vehicle: FLEET_VEHICLES[3], // Creta
-      badge: 'Modern Urban Style',
-      caption: 'Hyundai Creta • Smooth Highway & City Cruising',
+      vehicle: FLEET_VEHICLES[2], // Fortuner Type 2
+      badge: 'Luxury SUV • ₹4,000/24HR',
+      caption: 'Toyota Fortuner Type 2 • Diesel AT • 7 Seater',
     },
     {
-      vehicle: FLEET_VEHICLES[4], // Brezza
-      badge: 'Compact & Agile',
-      caption: 'Maruti Brezza • High Clearance & Effortless Driving',
+      vehicle: FLEET_VEHICLES[6], // Brezza
+      badge: 'Compact SUV • ₹2,500/24HR',
+      caption: 'Suzuki Brezza • Petrol MT • 5 Seater',
     },
   ];
 
@@ -52,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
             className="lg:col-span-7 flex flex-col text-left"
           >
             {/* Small Badge */}
-            <div className="inline-flex items-center gap-2 mb-4 self-start">
+            <div className="flex flex-wrap items-center gap-2 mb-4 self-start">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-brand-blue-light text-brand-blue border border-brand-blue/15 shadow-subtle">
                 <Sparkles className="w-3.5 h-3.5 text-brand-yellow fill-brand-yellow" />
                 ESTABLISHED IN 2019
@@ -60,6 +60,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
               <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-brand-yellow/15 text-slate-800 border border-brand-yellow/30">
                 <ShieldCheck className="w-3.5 h-3.5 text-brand-blue" />
                 Hyderabad &amp; Outstation
+              </span>
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <Tag className="w-3 h-3 text-emerald-600" />
+                Rates From ₹2,000/24HR
               </span>
             </div>
 
@@ -79,7 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
 
             {/* Description */}
             <p className="text-base sm:text-lg text-brand-muted leading-relaxed mb-6 max-w-2xl">
-              Choose from a range of vehicles for self-drive or with-driver travel. From practical everyday cars to premium SUVs and larger family vehicles, LPSDC provides flexible car rental options in Hyderabad.
+              Choose from a wide range of verified cars starting at ₹2,000/24HR. From Swift, Baleno, and Ciaz to Mahindra Thar 4×4, Fortuner, and Innova Crysta — flexible rentals tailored for Hyderabad.
             </p>
 
             {/* Dual Service Highlighting Badges */}
@@ -122,7 +126,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
                 href="#fleet"
                 className="inline-flex items-center justify-center px-5 py-3.5 bg-white hover:bg-brand-blue-light border-2 border-brand-blue/20 hover:border-brand-blue text-brand-blue font-bold text-base rounded-xl shadow-subtle transition-all duration-200"
               >
-                VIEW OUR FLEET
+                VIEW FLEET &amp; PRICES
               </a>
 
               {/* Third CTA: WhatsApp */}
@@ -159,7 +163,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-brand-blue"></span>
-                <span className="font-semibold text-slate-700">Bandlaguda Jagir / Kismatpur</span>
+                <span className="font-semibold text-slate-700">Rates from ₹2,000/24HR</span>
               </div>
             </div>
           </motion.div>
@@ -211,6 +215,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
                   </span>
                 </div>
 
+                {/* Floating Price Pill */}
+                <div className="absolute bottom-3 left-3 bg-brand-blue/95 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-xs font-black shadow border border-white/20 flex items-center gap-1">
+                  <Tag className="w-3 h-3 text-brand-yellow" />
+                  <span>{currentHero.vehicle.price}{currentHero.vehicle.priceUnit}</span>
+                </div>
+
                 {/* Vehicle Quick Specs Pill */}
                 <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-[11px] font-bold text-slate-800 shadow-md border border-slate-200/60 flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5 text-brand-blue" />
@@ -234,7 +244,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
                     onClick={() => onOpenBookingModal(currentHero.vehicle.name)}
                     className="px-3.5 py-1.5 bg-brand-blue text-white hover:bg-brand-blue-secondary text-xs font-bold rounded-lg shadow-sm transition-colors"
                   >
-                    Enquire
+                    Book Now
                   </button>
                 </div>
 
@@ -253,7 +263,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBookingModal }) => {
                             : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
                         }`}
                       >
-                        {car.vehicle.name.replace('Mahindra ', '').replace('Toyota ', '').replace('Hyundai ', '').replace('Maruti ', '')}
+                        {car.vehicle.name.replace('Mahindra ', '').replace('Toyota ', '').replace('Suzuki ', '')}
                       </button>
                     );
                   })}
