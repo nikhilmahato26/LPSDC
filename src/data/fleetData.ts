@@ -8,7 +8,7 @@ export const BUSINESS_INFO = {
   whatsappPhone: '918074691600',
   email: 'lpselfdrivecars@gmail.com',
   establishedYear: '2019',
-  address: 'Sai Baba Nagar Colony, Kismatpur, Bandlaguda Jagir, Rajendranagar, Rangareddy, Hyderabad, Telangana – 500086',
+  address: 'Himayat Sagar Rd, Sector 1, Dargah Khaleej Khan, Himayat Sagar Village, Hyderabad, Kismatpur, Telangana 500075',
   googleMapsUrl: 'https://maps.app.goo.gl/GH1rcL3LZM7z9NAG6?g_st=aw',
   instagramHandle: '@lpselfdrivecars',
   instagramUrl: 'https://www.instagram.com/lpselfdrivecars?stkn=cW83djE1aThrNTdu',

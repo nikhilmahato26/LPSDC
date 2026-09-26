@@ -34,7 +34,7 @@ export const TrustBar: React.FC = () => {
     {
       value: 'Hyderabad',
       label: 'Local & Outstation',
-      description: 'Bandlaguda Jagir base',
+      description: 'Himayat Sagar base',
       icon: MapPin,
       highlight: false,
     },

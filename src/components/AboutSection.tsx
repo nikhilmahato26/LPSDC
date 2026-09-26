@@ -32,7 +32,7 @@ export const AboutSection: React.FC = () => {
                   <div className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-brand-blue shrink-0" />
                     <span className="text-sm font-semibold text-slate-800">
-                      Based in Kismatpur, Bandlaguda Jagir, Hyderabad
+                      Based in Himayat Sagar, Kismatpur, Hyderabad
                     </span>
                   </div>
                   <div className="flex items-center gap-3">

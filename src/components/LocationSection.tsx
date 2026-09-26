@@ -138,7 +138,7 @@ export const LocationSection: React.FC = () => {
               <div className="p-4 bg-white border-t border-brand-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
                   <MapPin className="w-4 h-4 text-brand-blue shrink-0" />
-                  <span className="truncate">Bandlaguda Jagir, Rajendranagar, Hyderabad – 500086</span>
+                  <span className="truncate">{BUSINESS_INFO.address}</span>
                 </div>
                 <a
                   href={directionsUrl}
